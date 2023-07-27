@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../../../../node_modules/@generated"
+  emitOnly = "inputs,enums,crudResolvers"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PostType {
+  PERSON
+  THING
+  COUNTRY
+  ORGANISATION
+  ANIMALS
+  GROUPS
+}
+
+model User {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @unique
+  /// @TypeGraphQL.omit(output: true)
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+}
+
+model Post {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String
+  type      PostType
+  image     String?
+  votes     Vote[]
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+}
+
+model PostSuggestion {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ip        String
+  deviceId  String
+  title     String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+}
+
+model Vote {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ip        String
+  deviceId  String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.Uuid
+  skip      Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  @@unique([ip, deviceId, postId])
+}
