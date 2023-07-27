@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Center, Text, Image, Stack, Button, Box, Kbd, Tooltip, useEventListener } from "@chakra-ui/react"
-import { MdNavigateNext } from "react-icons/Md"
+import { MdNavigateNext } from "react-icons/md"
 import { LiaHandMiddleFingerSolid } from "react-icons/lia"
 import gql from "graphql-tag"
 
