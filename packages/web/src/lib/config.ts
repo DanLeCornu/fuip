@@ -3,8 +3,8 @@ export const IS_STAGING = process.env.NEXT_PUBLIC_APP_ENV === "staging"
 
 export const IS_DEV = !IS_STAGING && !IS_PRODUCTION
 
-// export const SENTRY_DSN = "https://5d0371a223bb4509902f8940cb957daf@o204549.ingest.sentry.io/5741383"
-export const SENTRY_DSN = ""
+export const SENTRY_DSN =
+  "https://834d1ce46681462ebbf9f24bfdf2388e@o4505602731540480.ingest.sentry.io/4505602734882816"
 
 // const STAGING_URL = process.env.VERCEL_GIT_PULL_REQUEST_NUMBER
 //   ? `https://api-fuckyouinparticular-pr-${process.env.VERCEL_GIT_PULL_REQUEST_NUMBER}.up.railway.app`
