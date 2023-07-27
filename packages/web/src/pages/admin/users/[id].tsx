@@ -1,6 +1,6 @@
 import * as React from "react"
 import { gql } from "@apollo/client"
-import { Avatar, Box, Center, Flex, Heading, Spinner, Stack, Text } from "@chakra-ui/react"
+import { Box, Center, Flex, Spinner, Stack, Text } from "@chakra-ui/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 
@@ -40,15 +40,15 @@ export default function Users() {
   return (
     <Box>
       <Head>
-        <title>{user.fullName}</title>
+        <title>{user.email}</title>
       </Head>
       <Flex justify="space-between">
         <Stack>
-          <Heading fontWeight={800}>{user.fullName}</Heading>
+          {/* <Heading fontWeight={800}>{user.fullName}</Heading> */}
           <Text>{user.email}</Text>
-          <Text>{user.bio}</Text>
+          {/* <Text>{user.bio}</Text> */}
         </Stack>
-        {user.avatar && <Avatar size="xl" src={user.avatar} name={user.fullName} />}
+        {/* {user.avatar && <Avatar size="xl" src={user.avatar} name={user.fullName} />} */}
       </Flex>
     </Box>
   )

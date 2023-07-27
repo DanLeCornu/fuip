@@ -1,4 +1,3 @@
-import { PostType } from "lib/static/postType"
 import { randomFromArray } from "./utils"
 
 export const voteSuccessToast = (title: string) => {

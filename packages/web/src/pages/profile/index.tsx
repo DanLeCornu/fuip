@@ -5,7 +5,6 @@ import { Button, Center, Spinner, Stack } from "@chakra-ui/react"
 import { useUpdateMeMutation } from "lib/graphql"
 import { useForm } from "lib/hooks/useForm"
 import { useMe } from "lib/hooks/useMe"
-import { useMutationHandler } from "lib/hooks/useMutationHandler"
 import Yup from "lib/yup"
 import { ButtonGroup } from "components/ButtonGroup"
 import { Form } from "components/Form"
@@ -31,7 +30,7 @@ const ProfileSchema = Yup.object().shape({
 function Profile() {
   const { me, loading } = useMe()
 
-  const handler = useMutationHandler()
+  // const handler = useMutationHandler()
   const [updateUser] = useUpdateMeMutation()
 
   // const updateAvatar = (avatar: string | null) => {

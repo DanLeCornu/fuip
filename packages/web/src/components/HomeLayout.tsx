@@ -2,9 +2,6 @@ import * as React from "react"
 import { Box } from "@chakra-ui/layout"
 
 import { Limiter } from "./Limiter"
-import { Flex, IconButton, Link, Tooltip, useColorMode, Text } from "@chakra-ui/react"
-import { BiMoon, BiSun } from "react-icons/bi"
-import NextLink from "next/link"
 import { Nav } from "./Nav"
 
 interface Props {
@@ -12,8 +9,8 @@ interface Props {
 }
 
 export function HomeLayout(props: Props) {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const isDark = colorMode === "dark"
+  // const { colorMode, toggleColorMode } = useColorMode()
+  // const isDark = colorMode === "dark"
   return (
     <Box>
       <Nav />

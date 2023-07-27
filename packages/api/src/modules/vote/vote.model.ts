@@ -13,4 +13,7 @@ export class Vote extends BaseModel implements Prisma.Vote {
 
   @Field()
   postId: string
+
+  @Field()
+  skip: boolean
 }
