@@ -4,7 +4,7 @@ import * as glob from "glob"
 export const RESOLVER_PATHS = "/modules/**/*resolver.{js,ts}"
 
 export type NonEmptyArray<TItem> = readonly [TItem, ...TItem[]] | [TItem, ...TItem[]]
-export type Resolvers = NonEmptyArray<Function> | NonEmptyArray<string>
+export type Resolvers = NonEmptyArray<Function>
 
 export function loadResolvers(): Resolvers {
   const filePaths = glob.globSync(__dirname + "../../" + RESOLVER_PATHS)
