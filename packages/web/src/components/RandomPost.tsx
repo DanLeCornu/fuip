@@ -2,7 +2,6 @@ import * as React from "react"
 import { Center, Text, Image, Stack, Button, Box, Kbd, Tooltip, useEventListener } from "@chakra-ui/react"
 import { MdNavigateNext } from "react-icons/md"
 import { LiaHandMiddleFingerSolid } from "react-icons/lia"
-import gql from "graphql-tag"
 
 import { PostType, useGetRandomPostQuery, useVoteMutation } from "lib/graphql"
 
@@ -11,6 +10,7 @@ import { useMutationHandler } from "lib/hooks/useMutationHandler"
 import { NoData } from "./NoData"
 import { Tile } from "./Tile"
 import { EverythingVoted } from "./EverythingVoted"
+import { gql } from "@apollo/client"
 
 const _ = gql`
   fragment RandomPost on Post {

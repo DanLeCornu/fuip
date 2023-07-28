@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
 import { Service } from "typedi"
 
-import { UserWhereInput } from "@generated"
+import { UserWhereInput } from "@fuip/database/dist/generated"
 
 import { createAuthToken, createRefreshToken } from "../../lib/jwt"
 import { prisma } from "../../lib/prisma"

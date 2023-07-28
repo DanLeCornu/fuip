@@ -1,7 +1,7 @@
 import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql"
 import { Inject, Service } from "typedi"
 
-import { CreateOneUserArgs, FindFirstUserArgs, FindManyUserArgs, Role } from "@generated"
+import { CreateOneUserArgs, FindFirstUserArgs, FindManyUserArgs, Role } from "@fuip/database/dist/generated"
 
 import { createToken, decodeRefreshToken, decodeToken } from "../../lib/jwt"
 import { prisma } from "../../lib/prisma"
@@ -67,7 +67,7 @@ export default class UserResolver {
   async login(@Arg("data") data: LoginInput, @Ctx() context: ResolverContext): Promise<AuthResponse> {
     const user = await this.userService.login(data)
     const tokens = this.userService.createAuthTokens(user)
-    context.req.user = user
+    context.req.auth = user
     context.req.currentUser = user
     return { user, ...tokens }
   }
@@ -92,7 +92,7 @@ export default class UserResolver {
   async register(@Arg("data") data: RegisterInput, @Ctx() context: ResolverContext): Promise<AuthResponse> {
     const user = await this.userService.register(data)
     const tokens = this.userService.createAuthTokens(user)
-    context.req.user = user
+    context.req.auth = user
     context.req.currentUser = user
     return { user, ...tokens }
   }

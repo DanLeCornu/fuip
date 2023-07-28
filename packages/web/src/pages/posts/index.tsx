@@ -3,7 +3,7 @@ import { IoMdArrowBack } from "react-icons/io"
 
 import { HomeLayout } from "components/HomeLayout"
 import { PostList } from "components/PostList"
-import { Box, Center, Heading, Link, Stack, HStack, Text } from "@chakra-ui/react"
+import { Box, Center, Heading, Stack, HStack, Text } from "@chakra-ui/react"
 import Head from "next/head"
 import NextLink from "next/link"
 import { Limiter } from "components/Limiter"
@@ -17,12 +17,10 @@ export default function Posts() {
       <Limiter>
         <Center flexDir="column">
           <NextLink passHref href="/">
-            <Link mb={8}>
-              <HStack>
-                <IoMdArrowBack />
-                <Text>back to ratings</Text>
-              </HStack>
-            </Link>
+            <HStack mb={8}>
+              <IoMdArrowBack />
+              <Text>back to ratings</Text>
+            </HStack>
           </NextLink>
           <Stack>
             <Heading as="h1" textAlign="center">

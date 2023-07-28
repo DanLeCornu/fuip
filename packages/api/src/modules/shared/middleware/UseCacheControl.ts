@@ -3,7 +3,7 @@ import { UseMiddleware } from "type-graphql"
 
 export function UseCacheControl(hint: CacheHint) {
   return UseMiddleware(({ info }, next) => {
-    info.cacheControl.setCacheHint(hint)
+    // info.cacheControl.setCacheHint(hint) // TODO fix
     return next()
   })
 }

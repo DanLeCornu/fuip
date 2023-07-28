@@ -3,7 +3,7 @@ import { Request, Response } from "express"
 import { User } from "../modules/user/user.model"
 
 export interface ExpressRequest extends Request {
-  user?: { id: string }
+  auth?: { id: string }
   currentUser?: User
 }
 

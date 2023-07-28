@@ -7,7 +7,6 @@ import {
   Fade,
   HStack,
   IconButton,
-  Link,
   // LinkProps,
   // Menu,
   // MenuButton,
@@ -58,11 +57,9 @@ export function Nav() {
         {/* Left link list */}
         <HStack>
           <NextLink passHref href="/">
-            <Link sx={{ _hover: { textDecoration: "none" } }} px={4} py={2}>
-              <Text fontWeight="bold" fontSize="2xl">
-                FUIP
-              </Text>
-            </Link>
+            <Text fontWeight="bold" fontSize="2xl" sx={{ _hover: { textDecoration: "none" } }} px={4} py={2}>
+              FUIP
+            </Text>
           </NextLink>
           {/* <HomeLink
             href="/"
@@ -82,12 +79,6 @@ export function Nav() {
         {/* {!me && !loading && ( */}
         <Fade in>
           <HStack spacing={4} display={{ base: "none", md: "flex" }}>
-            {/* <LinkButton href="/login" variant="ghost">
-                Login
-              </LinkButton>
-              <LinkButton href="/register" variant="solid" colorScheme="green">
-                Register
-              </LinkButton> */}
             <Tooltip label="Toggle Theme">
               <IconButton
                 aria-label="toggle theme"

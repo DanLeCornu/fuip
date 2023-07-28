@@ -1,4 +1,19 @@
-import { PrismaClient } from "@prisma/client"
+import chalk from "chalk"
 
-export const prisma = new PrismaClient({ log: ["query", "warn", "error"] })
-prisma.$connect()
+import { PrismaClient } from "@fuip/database"
+
+import { DATABASE_URL, NODE_ENV } from "./config"
+
+export const prisma = new PrismaClient({ log: ["warn", "error"] })
+
+if (NODE_ENV === "development" && !DATABASE_URL.includes("localhost")) {
+  console.log(
+    `${chalk.red(
+      ` \n\n
+        ----------- WARNING -----------
+        \n\n
+        You are using a non-development database. Be careful.
+        \n\n`,
+    )}`,
+  )
+}

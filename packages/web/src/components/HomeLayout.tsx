@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Box } from "@chakra-ui/layout"
+import { Box } from "@chakra-ui/react"
 
 import { Limiter } from "./Limiter"
 import { Nav } from "./Nav"

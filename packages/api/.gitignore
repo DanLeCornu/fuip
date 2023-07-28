@@ -1,3 +1,4 @@
 node_modules
+tsconfig.tsbuildinfo
 # Keep environment variables out of version control
 .env

@@ -16,14 +16,21 @@
     {
       "packageNames": ["aws-sdk"],
       "extends": ["schedule:monthly"]
+    },
+    {
+      "packageNames": ["pnpm", "node"],
+      "matchPackageNames": ["node", "pnpm"],
+      "enabled": false
     }
   ],
   "ignoreDeps": [
+    "typescript",
     "prisma",
     "@prisma/client",
-    "react-native-safe-area-context",
-    "react-native",
-    "react-native-screens",
-    "@react-native-async-storage/async-storage"
+    "@apollo/server",
+    "apollo-server-express",
+    "apollo-server-core",
+    "apollo-server-types",
+    "apollo-server-errors",
   ]
 }

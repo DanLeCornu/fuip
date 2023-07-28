@@ -66,8 +66,6 @@ export type Mutation = {
   createVote: Scalars['Boolean'];
   destroyAccount: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
-  getBulkSignedS3UrlForPut?: Maybe<Array<SignedResponse>>;
-  getSignedS3UrlForPut?: Maybe<SignedResponse>;
   login: AuthResponse;
   register: AuthResponse;
   resetPassword: Scalars['Boolean'];
@@ -95,16 +93,6 @@ export type MutationCreateVoteArgs = {
 
 export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
-};
-
-
-export type MutationGetBulkSignedS3UrlForPutArgs = {
-  data: S3BulkSignedUrlInput;
-};
-
-
-export type MutationGetSignedS3UrlForPutArgs = {
-  data: S3SignedUrlInput;
 };
 
 
@@ -201,13 +189,18 @@ export type NestedUuidFilter = {
   notIn?: InputMaybe<Array<Scalars['String']>>;
 };
 
+export enum NullsOrder {
+  First = 'first',
+  Last = 'last'
+}
+
 export type Post = {
   __typename?: 'Post';
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   image?: Maybe<Scalars['String']>;
   title: Scalars['String'];
-  type: Scalars['String'];
+  type: PostType;
   updatedAt: Scalars['DateTime'];
   voteCount: Scalars['Float'];
   votes: VotesResponse;
@@ -216,7 +209,7 @@ export type Post = {
 export type PostOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  image?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrderInput>;
   title?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -271,7 +264,6 @@ export type PostsResponse = {
 
 export type Query = {
   __typename?: 'Query';
-  getSignedS3UrlForGet?: Maybe<Scalars['String']>;
   me?: Maybe<User>;
   myVotes: Array<MyVotesResponse>;
   post?: Maybe<Post>;
@@ -280,11 +272,6 @@ export type Query = {
   refreshToken?: Maybe<RefreshTokenResponse>;
   user?: Maybe<User>;
   users: UsersResponse;
-};
-
-
-export type QueryGetSignedS3UrlForGetArgs = {
-  key: Scalars['String'];
 };
 
 
@@ -376,26 +363,15 @@ export enum Role {
   User = 'USER'
 }
 
-export type S3BulkSignedUrlInput = {
-  files: Array<S3SignedUrlInput>;
-};
-
-export type S3SignedUrlInput = {
-  fileType: Scalars['String'];
-  key: Scalars['String'];
-};
-
-export type SignedResponse = {
-  __typename?: 'SignedResponse';
-  key: Scalars['String'];
-  uploadUrl: Scalars['String'];
-  url: Scalars['String'];
-};
-
 export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc'
 }
+
+export type SortOrderInput = {
+  nulls?: InputMaybe<NullsOrder>;
+  sort: SortOrder;
+};
 
 export type StringFilter = {
   contains?: InputMaybe<Scalars['String']>;
@@ -510,6 +486,7 @@ export type Vote = {
   id: Scalars['String'];
   ip: Scalars['String'];
   postId: Scalars['String'];
+  skip: Scalars['Boolean'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -574,14 +551,14 @@ export type MyVotesQueryVariables = Exact<{
 
 export type MyVotesQuery = { __typename?: 'Query', myVotes: Array<{ __typename?: 'MyVotesResponse', postId: string }> };
 
-export type RandomPostFragment = { __typename?: 'Post', id: string, title: string, image?: string | null, type: string };
+export type RandomPostFragment = { __typename?: 'Post', id: string, title: string, image?: string | null, type: PostType };
 
 export type GetRandomPostQueryVariables = Exact<{
   deviceId: Scalars['String'];
 }>;
 
 
-export type GetRandomPostQuery = { __typename?: 'Query', randomPost?: { __typename?: 'Post', id: string, title: string, image?: string | null, type: string } | null };
+export type GetRandomPostQuery = { __typename?: 'Query', randomPost?: { __typename?: 'Post', id: string, title: string, image?: string | null, type: PostType } | null };
 
 export type VoteMutationVariables = Exact<{
   postId: Scalars['String'];
@@ -598,20 +575,6 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, role: Role } | null };
-
-export type GetSignedUrlForPutMutationVariables = Exact<{
-  data: S3SignedUrlInput;
-}>;
-
-
-export type GetSignedUrlForPutMutation = { __typename?: 'Mutation', getSignedS3UrlForPut?: { __typename?: 'SignedResponse', url: string, uploadUrl: string } | null };
-
-export type GetBulkSignedUrlForPutMutationVariables = Exact<{
-  data: S3BulkSignedUrlInput;
-}>;
-
-
-export type GetBulkSignedUrlForPutMutation = { __typename?: 'Mutation', getBulkSignedS3UrlForPut?: Array<{ __typename?: 'SignedResponse', url: string, uploadUrl: string, key: string }> | null };
 
 export type UserDetailFragment = { __typename?: 'User', id: string, email: string, createdAt: string };
 
@@ -830,37 +793,6 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const GetSignedUrlForPutDocument = gql`
-    mutation GetSignedUrlForPut($data: S3SignedUrlInput!) {
-  getSignedS3UrlForPut(data: $data) {
-    url
-    uploadUrl
-  }
-}
-    `;
-export function useGetSignedUrlForPutMutation(baseOptions?: Apollo.MutationHookOptions<GetSignedUrlForPutMutation, GetSignedUrlForPutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<GetSignedUrlForPutMutation, GetSignedUrlForPutMutationVariables>(GetSignedUrlForPutDocument, options);
-      }
-export type GetSignedUrlForPutMutationHookResult = ReturnType<typeof useGetSignedUrlForPutMutation>;
-export type GetSignedUrlForPutMutationResult = Apollo.MutationResult<GetSignedUrlForPutMutation>;
-export type GetSignedUrlForPutMutationOptions = Apollo.BaseMutationOptions<GetSignedUrlForPutMutation, GetSignedUrlForPutMutationVariables>;
-export const GetBulkSignedUrlForPutDocument = gql`
-    mutation GetBulkSignedUrlForPut($data: S3BulkSignedUrlInput!) {
-  getBulkSignedS3UrlForPut(data: $data) {
-    url
-    uploadUrl
-    key
-  }
-}
-    `;
-export function useGetBulkSignedUrlForPutMutation(baseOptions?: Apollo.MutationHookOptions<GetBulkSignedUrlForPutMutation, GetBulkSignedUrlForPutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<GetBulkSignedUrlForPutMutation, GetBulkSignedUrlForPutMutationVariables>(GetBulkSignedUrlForPutDocument, options);
-      }
-export type GetBulkSignedUrlForPutMutationHookResult = ReturnType<typeof useGetBulkSignedUrlForPutMutation>;
-export type GetBulkSignedUrlForPutMutationResult = Apollo.MutationResult<GetBulkSignedUrlForPutMutation>;
-export type GetBulkSignedUrlForPutMutationOptions = Apollo.BaseMutationOptions<GetBulkSignedUrlForPutMutation, GetBulkSignedUrlForPutMutationVariables>;
 export const GetUserDocument = gql`
     query GetUser($where: UserWhereInput) {
   user(where: $where) {

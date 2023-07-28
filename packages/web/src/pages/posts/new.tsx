@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Box, Center, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react"
+import { Box, Center, Heading, HStack, Stack, Text } from "@chakra-ui/react"
 import { IoMdArrowBack } from "react-icons/io"
 import Head from "next/head"
 import NextLink from "next/link"
@@ -20,12 +20,10 @@ export default function NewPost() {
       <Limiter>
         <Center flexDir="column">
           <NextLink passHref href="/">
-            <Link mb={8}>
-              <HStack>
-                <IoMdArrowBack />
-                <Text>back to ratings</Text>
-              </HStack>
-            </Link>
+            <HStack mb={8}>
+              <IoMdArrowBack />
+              <Text>back to ratings</Text>
+            </HStack>
           </NextLink>
           <Stack>
             <Heading as="h1" textAlign="center">

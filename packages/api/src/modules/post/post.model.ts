@@ -1,5 +1,5 @@
-import * as Prisma from "@prisma/client"
-import { PostType } from "@prisma/client"
+import * as Prisma from "@fuip/database"
+import { PostType } from "@fuip/database/dist/generated"
 import { Field, ObjectType } from "type-graphql"
 
 import { BaseModel } from "../shared/base.model"
@@ -9,8 +9,9 @@ export class Post extends BaseModel implements Prisma.Post {
   @Field()
   title: string
 
-  @Field(() => String)
-  type: PostType
+  @Field(() => PostType)
+  type: Prisma.PostType
 
+  @Field(() => String, { nullable: true })
   image: string | null
 }

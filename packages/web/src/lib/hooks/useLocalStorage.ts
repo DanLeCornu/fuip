@@ -16,7 +16,6 @@ export function useLocalStorage<T>(
   const setValue = React.useCallback(
     (value: any) => {
       try {
-        console.log(value)
         const valueToStore = value instanceof Function ? value(storedValue) : value
         setStoredValue(valueToStore)
         window.localStorage.setItem(key, JSON.stringify(valueToStore))

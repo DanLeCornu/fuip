@@ -1,7 +1,7 @@
 import { AuthenticationError } from "apollo-server-express"
 import { createMethodDecorator } from "type-graphql"
 
-import { Role } from "@generated"
+import { Role } from "@fuip/database/dist/generated"
 
 import { ResolverContext } from "../../shared/resolverContext"
 

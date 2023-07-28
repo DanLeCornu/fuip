@@ -25,6 +25,10 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
         case "BAD_USER_INPUT":
           Sentry.captureException(err)
           break
+        case "GRAPHQL_VALIDATION_FAILED":
+          Sentry.captureException(err)
+          window.location.href = `/error?redirect=${window.location.pathname}`
+          break
         case "UNAUTHENTICATED":
           return fromPromise(
             refreshToken()
@@ -47,8 +51,17 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
             .filter(Boolean)
             .flatMap(() => forward(operation))
         default:
-          Sentry.captureException(err)
-          console.error(err)
+          if (err.message.includes("Argument Validation Error")) {
+            break
+          }
+          Sentry.captureException(err, {
+            extra: {
+              "Unknown client code": err.extensions.code,
+              exception: JSON.stringify(err.extensions.exception, null, 2),
+              message: err.message,
+            },
+          })
+          console.error("unkown type", err)
           break
       }
     }
@@ -59,11 +72,19 @@ const httpLink = createHttpLink({ uri: GRAPHQL_API_URL })
 
 function createApolloClient(initialState?: null | Record<string, any>) {
   const authLink = setContext((_, { headers }) => {
-    const token = window.localStorage.getItem(ACCESS_TOKEN)
+    if (isBrowser()) {
+      const token = window.localStorage.getItem(ACCESS_TOKEN)
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    }
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : "",
+        "x-fuip-token": process.env.API_TOKEN || undefined,
       },
     }
   })

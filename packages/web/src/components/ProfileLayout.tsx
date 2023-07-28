@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Link, LinkProps, Stack, useColorModeValue } from "@
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 
-export const ProfileLayout: React.FC = ({ children }) => {
+export function ProfileLayout({ children }: { children: React.ReactNode }) {
   return (
     <Box pt={10} pb={20} w="100%">
       <Heading pb={10} fontSize={{ base: "2xl", md: "3xl" }}>

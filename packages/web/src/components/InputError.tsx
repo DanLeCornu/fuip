@@ -1,9 +1,8 @@
 import * as React from "react"
-import type { FieldError, FieldErrors, Merge } from "react-hook-form"
 import { FormErrorMessage } from "@chakra-ui/react"
 
 interface Props {
-  error?: FieldError | Merge<FieldError, FieldErrors<any>> | string
+  error?: string | { message?: string | undefined; types?: any }
 }
 
 export const InputError: React.FC<Props> = (props) => {
@@ -17,7 +16,7 @@ export const InputError: React.FC<Props> = (props) => {
       ) : (
         props.error.types &&
         Object.values(props.error.types).map((error, i) => (
-          <FormErrorMessage key={i}>{error}</FormErrorMessage>
+          <FormErrorMessage key={i}>{error as string}</FormErrorMessage>
         ))
       )}
     </>

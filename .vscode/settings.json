@@ -1,3 +1,18 @@
 {
-	"typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/node_modules": true
+    // "**/generated/**": true
+  },
+  "eslint.packageManager": "pnpm",
+  "files.exclude": {
+    // "**/generated/**": true,
+    // "**/node_modules/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  }
 }

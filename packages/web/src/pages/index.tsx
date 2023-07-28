@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Box, Center, Heading, HStack, Link, VStack, Text } from "@chakra-ui/react"
+import { Box, Center, Heading, HStack, VStack, Text } from "@chakra-ui/react"
 import { IoMdArrowForward } from "react-icons/io"
 import Head from "next/head"
 import NextLink from "next/link"
@@ -43,12 +43,10 @@ export default function Home() {
             <RandomPost deviceId={deviceId} />
           </Box>
           <NextLink passHref href="/posts">
-            <Link>
-              <HStack>
-                <Text>see the leaderboard</Text>
-                <IoMdArrowForward />
-              </HStack>
-            </Link>
+            <HStack>
+              <Text>see the leaderboard</Text>
+              <IoMdArrowForward />
+            </HStack>
           </NextLink>
         </Center>
       </Limiter>

@@ -1,17 +1,38 @@
 {
-  "baseBranch": "origin/main",
+  "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**"]
-    },
-    "prettify": {},
-    "typecheck": {},
-    "lint": {},
-    "dev": {
+    "db:generate": {
+      "inputs": ["schema.prisma"],
       "cache": false
     },
-    "pre-commit": {
+    "build": {
+      "dependsOn": ["db:generate", "^build"],
+      "outputs": [".next/**", "dist/**"]
+    },
+    "build:web": {
+      "dependsOn": ["db:generate", "^build"],
+      "outputs": [".next/**", "dist/**"]
+    },
+    "fix": {},
+    "prettier": {},
+    "prettier:fix": {},
+    "typecheck": {},
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "outputs": []
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "db:push": {
+      "inputs": ["schema.prisma"],
+      "cache": false
+    },
+    "db:migrate": {
+      "inputs": ["schema.prisma"],
       "cache": false
     }
   }

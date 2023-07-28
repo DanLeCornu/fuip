@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@fuip/database"
 
 import { ExpressContext } from "../../lib/express"
 
