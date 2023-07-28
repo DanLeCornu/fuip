@@ -2709,7 +2709,7 @@
   resolved "https://registry.yarnpkg.com/@types/graphql-fields/-/graphql-fields-1.3.5.tgz#e1c78bb200a3d20d5a5a4ed4c34d3a09e8b696b6"
   integrity sha512-F6Nkra4p4MeBRFhg4zfkrnl/2gL4HZdt5lkFgLKZaA+3U/5+eA1dMqSHuSHX7aFUbCFE48ch8qCBXB/udcRhMg==
   dependencies:
-    graphql "15.8.0"
+    graphql "*"
 
 "@types/http-errors@*":
   version "2.0.1"
@@ -5545,11 +5545,6 @@ graphql-ws@5.12.1:
   version "5.12.1"
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.12.1.tgz#c62d5ac54dbd409cc6520b0b39de374b3d59d0dd"
   integrity sha512-umt4f5NnMK46ChM2coO36PTFhHouBrK9stWWBczERguwYrGnPNxJ9dimU6IyOBfOkC6Izhkg4H8+F51W/8CYDg==
-
-graphql@*:
-  version "16.7.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.7.1.tgz#11475b74a7bff2aefd4691df52a0eca0abd9b642"
-  integrity sha512-DRYR9tf+UGU0KOsMcKAlXeFfX89UiiIZ0dRU3mR0yJfu6OjZqUcp68NnFLnqQU5RexygFoDy1EW+ccOYcPfmHg==
 
 graphql@15.8.0:
   version "15.8.0"
