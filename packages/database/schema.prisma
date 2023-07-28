@@ -50,7 +50,6 @@ model Post {
 
 model PostSuggestion {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  ip        String
   deviceId  String
   title     String
   createdAt DateTime @default(now()) @db.Timestamptz(6)
@@ -59,7 +58,6 @@ model PostSuggestion {
 
 model Vote {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  ip        String
   deviceId  String
   post      Post     @relation(fields: [postId], references: [id])
   postId    String   @db.Uuid
@@ -67,5 +65,5 @@ model Vote {
   createdAt DateTime @default(now()) @db.Timestamptz(6)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 
-  @@unique([ip, deviceId, postId])
+  @@unique([deviceId, postId])
 }

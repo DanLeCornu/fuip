@@ -6,9 +6,6 @@ import { BaseModel } from "../shared/base.model"
 @ObjectType()
 export class Vote extends BaseModel implements Prisma.Vote {
   @Field()
-  ip: string
-
-  @Field()
   deviceId: string
 
   @Field()

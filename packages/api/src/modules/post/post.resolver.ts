@@ -1,4 +1,4 @@
-import { Arg, Args, Ctx, Query, Resolver } from "type-graphql"
+import { Arg, Args, Query, Resolver } from "type-graphql"
 import { Inject, Service } from "typedi"
 
 import { FindFirstPostArgs, FindManyPostArgs } from "@fuip/database/dist/generated"
@@ -6,9 +6,7 @@ import { FindFirstPostArgs, FindManyPostArgs } from "@fuip/database/dist/generat
 import { prisma } from "../../lib/prisma"
 import { Post } from "./post.model"
 import { PostsResponse } from "./responses/posts.response"
-import { ResolverContext } from "../shared/resolverContext"
 import { PostMailer } from "./post.mailer"
-import { getIp } from "../../lib/helpers"
 
 @Service()
 @Resolver(() => Post)
@@ -22,20 +20,15 @@ export default class PostResolver {
   }
 
   @Query(() => Post, { nullable: true })
-  async randomPost(
-    @Args() args: FindManyPostArgs,
-    @Arg("deviceId") deviceId: string,
-    @Ctx() ctx: ResolverContext,
-  ): Promise<Post | null> {
-    const ip = getIp(ctx)
-    const voteCount = await prisma.vote.count({ where: { ip, deviceId } })
+  async randomPost(@Args() args: FindManyPostArgs, @Arg("deviceId") deviceId: string): Promise<Post | null> {
+    const voteCount = await prisma.vote.count({ where: { deviceId } })
     const allPostsCount = await prisma.post.count()
 
     if (voteCount === allPostsCount) throw new Error("All posts voted on")
 
     const posts = await prisma.post.findMany({
       ...(args as any),
-      where: { votes: { none: { ip, deviceId } } },
+      where: { votes: { none: { deviceId } } },
     })
     let randomIndex = Math.floor(Math.random() * posts.length) - 1
     if (randomIndex < 0) {

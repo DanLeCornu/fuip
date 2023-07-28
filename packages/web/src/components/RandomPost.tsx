@@ -5,7 +5,6 @@ import { LiaHandMiddleFingerSolid } from "react-icons/lia"
 
 import { PostType, useGetRandomPostQuery, useVoteMutation } from "lib/graphql"
 
-import { voteSuccessToast } from "lib/helpers/voteToast"
 import { useMutationHandler } from "lib/hooks/useMutationHandler"
 import { NoData } from "./NoData"
 import { Tile } from "./Tile"
@@ -24,7 +23,7 @@ const _ = gql`
       ...RandomPost
     }
   }
-  mutation Vote($postId: String!, $deviceId: String!, $skip: Boolean) {
+  mutation Vote($postId: String!, $deviceId: String!, $skip: Boolean!) {
     createVote(postId: $postId, deviceId: $deviceId, skip: $skip)
   }
 `
@@ -43,7 +42,7 @@ export function RandomPost(props: Props) {
   const post = data?.randomPost
 
   const [vote, { loading: voteLoading }] = useVoteMutation()
-  const handleVote = (skip?: boolean) => {
+  const handleVote = (skip: boolean) => {
     if (loading || voteLoading) return
     return handler(
       () =>
@@ -51,12 +50,12 @@ export function RandomPost(props: Props) {
           variables: {
             postId: post?.id || "",
             deviceId: props.deviceId,
-            skip: !!skip,
+            skip,
           },
         }),
       {
-        onSuccess: (_, toast) => {
-          if (!skip) toast({ description: voteSuccessToast(post?.title || "") })
+        onSuccess: () => {
+          // if (!skip) toast({ description: voteSuccessToast(post?.title || "") })
           refetch()
         },
         onServerError: (_, toast) => {
@@ -69,7 +68,7 @@ export function RandomPost(props: Props) {
   useEventListener("keydown", (event) => {
     if (error?.message === "All posts voted on") return
     if (event.key === "Enter") {
-      handleVote()
+      handleVote(false)
     } else if (event.key === "ArrowRight") {
       handleVote(true)
     }
@@ -123,8 +122,9 @@ export function RandomPost(props: Props) {
               size="lg"
               aria-label={`vote for ${post.title}}`}
               leftIcon={<Box as={LiaHandMiddleFingerSolid} boxSize="25px" />}
-              onClick={() => handleVote()}
+              onClick={() => handleVote(false)}
               colorScheme="green"
+              isLoading={loading}
             >
               {buttonText}
             </Button>
@@ -138,6 +138,7 @@ export function RandomPost(props: Props) {
                 variant="outline"
                 onClick={() => handleVote(true)}
                 rightIcon={<Box as={MdNavigateNext} boxSize="20px" />}
+                isLoading={loading}
               >
                 next
               </Button>

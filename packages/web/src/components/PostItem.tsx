@@ -1,10 +1,9 @@
 import * as React from "react"
 import { Tile } from "./Tile"
 import { Flex, HStack, IconButton, Stack, Text, Image, Box, Tooltip } from "@chakra-ui/react"
-import { MyVotesDocument, PostItemFragment, useVoteMutation } from "lib/graphql"
+import { MyVotesDocument, PostItemFragment, PostsDocument, useVoteMutation } from "lib/graphql"
 import { LiaHandMiddleFingerSolid } from "react-icons/lia"
 import { useMutationHandler } from "lib/hooks/useMutationHandler"
-import { voteSuccessToast } from "lib/helpers/voteToast"
 
 interface Props {
   post: PostItemFragment
@@ -16,16 +15,22 @@ export function PostItem(props: Props) {
   const handler = useMutationHandler()
 
   const [vote, { loading }] = useVoteMutation({
-    refetchQueries: [{ query: MyVotesDocument, variables: { deviceId: props.deviceId } }],
+    refetchQueries: [
+      { query: MyVotesDocument, variables: { deviceId: props.deviceId } },
+      { query: PostsDocument },
+    ],
   })
   const handleVote = () => {
     if (props.isVotingDisabled || loading) return
-    return handler(() => vote({ variables: { postId: props.post.id, deviceId: props.deviceId } }), {
-      onSuccess: (_, toast) => toast({ description: voteSuccessToast(props.post.title) }),
-      onServerError: (_, toast) => {
-        toast({ status: "error", description: "You've already voted for this!" })
+    return handler(
+      () => vote({ variables: { postId: props.post.id, deviceId: props.deviceId, skip: false } }),
+      {
+        // onSuccess: (_, toast) => toast({ description: voteSuccessToast(props.post.title) }),
+        onServerError: (_, toast) => {
+          toast({ status: "error", description: "You've already voted for this!" })
+        },
       },
-    })
+    )
   }
 
   return (
@@ -72,6 +77,7 @@ export function PostItem(props: Props) {
                 aria-label={`vote for ${props.post.title}}`}
                 icon={<Box as={LiaHandMiddleFingerSolid} boxSize="25px" />}
                 onClick={handleVote}
+                isLoading={loading}
               />
             )}
           </Flex>

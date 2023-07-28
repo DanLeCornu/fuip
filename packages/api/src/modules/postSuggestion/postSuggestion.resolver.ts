@@ -3,7 +3,6 @@ import { Inject, Service } from "typedi"
 
 import { prisma } from "../../lib/prisma"
 import { ResolverContext } from "../shared/resolverContext"
-import { getIp } from "../../lib/helpers"
 import { PostMailer } from "../post/post.mailer"
 import { PostSuggestion } from "./postSuggestion.model"
 import dayjs from "dayjs"
@@ -23,13 +22,12 @@ export default class PostSuggestionResolver {
     @Arg("deviceId") deviceId: string,
     @Ctx() ctx: ResolverContext,
   ): Promise<boolean> {
-    const ip = getIp(ctx)
     const postSuggestions = await prisma.postSuggestion.findMany({
-      where: { ip, deviceId, createdAt: { gte: dayjs().utcOffset(0).startOf("day").toDate() } },
+      where: { deviceId, createdAt: { gte: dayjs().utcOffset(0).startOf("day").toDate() } },
     })
     if (postSuggestions.length > 0) throw new Error("Too many suggestions")
-    await prisma.postSuggestion.create({ data: { title, ip, deviceId } })
-    this.postMailer.sendSuggestedPost(title, ip, deviceId)
+    await prisma.postSuggestion.create({ data: { title, deviceId } })
+    void this.postMailer.sendSuggestedPost(title, deviceId)
     return true
   }
 }

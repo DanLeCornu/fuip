@@ -9,8 +9,5 @@ export class PostSuggestion extends BaseModel implements Prisma.PostSuggestion {
   title: string
 
   @Field()
-  ip: string
-
-  @Field()
   deviceId: string
 }

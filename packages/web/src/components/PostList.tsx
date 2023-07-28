@@ -40,7 +40,7 @@ export function PostList() {
 
   const { data, loading } = usePostsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { orderBy: { votes: { _count: SortOrder.Desc } } },
+    variables: { orderBy: { votes: { _count: SortOrder.Desc } } }, // TODO order by votes that aren't skipped
   })
   const posts = data?.posts.items || []
 

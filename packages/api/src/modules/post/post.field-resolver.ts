@@ -17,6 +17,6 @@ export default class PostFieldResolver {
 
   @FieldResolver(() => Number)
   async voteCount(@Root() post: Post) {
-    return (await prisma.post.findUnique({ where: { id: post.id } }).votes({ select: { id: true } }))?.length
+    return prisma.vote.count({ where: { postId: post.id, skip: false } })
   }
 }

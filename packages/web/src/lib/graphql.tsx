@@ -87,7 +87,7 @@ export type MutationCreateUserArgs = {
 export type MutationCreateVoteArgs = {
   deviceId: Scalars['String'];
   postId: Scalars['String'];
-  skip?: InputMaybe<Scalars['Boolean']>;
+  skip: Scalars['Boolean'];
 };
 
 
@@ -484,7 +484,6 @@ export type Vote = {
   createdAt: Scalars['DateTime'];
   deviceId: Scalars['String'];
   id: Scalars['String'];
-  ip: Scalars['String'];
   postId: Scalars['String'];
   skip: Scalars['Boolean'];
   updatedAt: Scalars['DateTime'];
@@ -507,7 +506,6 @@ export type VoteWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   deviceId?: InputMaybe<StringFilter>;
   id?: InputMaybe<UuidFilter>;
-  ip?: InputMaybe<StringFilter>;
   post?: InputMaybe<PostRelationFilter>;
   postId?: InputMaybe<UuidFilter>;
   skip?: InputMaybe<BoolFilter>;
@@ -563,7 +561,7 @@ export type GetRandomPostQuery = { __typename?: 'Query', randomPost?: { __typena
 export type VoteMutationVariables = Exact<{
   postId: Scalars['String'];
   deviceId: Scalars['String'];
-  skip?: InputMaybe<Scalars['Boolean']>;
+  skip: Scalars['Boolean'];
 }>;
 
 
@@ -764,7 +762,7 @@ export type GetRandomPostQueryHookResult = ReturnType<typeof useGetRandomPostQue
 export type GetRandomPostLazyQueryHookResult = ReturnType<typeof useGetRandomPostLazyQuery>;
 export type GetRandomPostQueryResult = Apollo.QueryResult<GetRandomPostQuery, GetRandomPostQueryVariables>;
 export const VoteDocument = gql`
-    mutation Vote($postId: String!, $deviceId: String!, $skip: Boolean) {
+    mutation Vote($postId: String!, $deviceId: String!, $skip: Boolean!) {
   createVote(postId: $postId, deviceId: $deviceId, skip: $skip)
 }
     `;
