@@ -35,7 +35,7 @@ export default function Home() {
               The Internet's most hated things
             </Heading>
           </VStack>
-          <Box my={{ base: 4, md: 16 }}>
+          <Box my={{ base: 4, md: 16 }} w="100%">
             <RandomPost deviceId={deviceId} />
           </Box>
           <NextLink passHref href="/posts">

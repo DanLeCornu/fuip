@@ -117,10 +117,7 @@ export function RandomPost(props: Props) {
           <Skeleton isLoaded={!loading && !!post} w="100%" h="100%" rounded="lg">
             <Image
               alt={post?.title}
-              src={
-                post?.image ||
-                "https://www.investopedia.com/thmb/1WsvySVwOtar439kYEFtSwV3eDw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1395371348-a3f9430f269b4f73b2659fe10c21c88c.jpg" // Elon
-              }
+              src={post?.image || ""}
               rounded="lg"
               w="100%"
               h="100%"
