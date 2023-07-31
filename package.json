@@ -43,9 +43,9 @@
   "resolutions": {
     "prettier": "2.8.8"
   },
-  "packageManager": "pnpm@8.6.10",
+  "packageManager": "pnpm@8.6.11",
   "engines": {
     "node": "18",
-    "pnpm": ">=7 <=8.6.10"
+    "pnpm": ">=7 <=8.6.11"
   }
 }
