@@ -1,7 +1,7 @@
 import { FieldResolver, Resolver, Root } from "type-graphql"
 import { Service } from "typedi"
-import { prisma } from "../../lib/prisma"
 
+import { prisma } from "../../lib/prisma"
 import { VotesResponse } from "../vote/responses/votes.response"
 import { Post } from "./post.model"
 

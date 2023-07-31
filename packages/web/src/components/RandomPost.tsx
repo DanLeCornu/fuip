@@ -1,15 +1,27 @@
 import * as React from "react"
-import { Center, Text, Image, Stack, Button, Box, Kbd, Tooltip, useEventListener } from "@chakra-ui/react"
-import { MdNavigateNext } from "react-icons/md"
 import { LiaHandMiddleFingerSolid } from "react-icons/lia"
+import { MdNavigateNext } from "react-icons/md"
+import { gql } from "@apollo/client"
+import {
+  Box,
+  Button,
+  Center,
+  Image,
+  Kbd,
+  Skeleton,
+  SkeletonText,
+  Stack,
+  Text,
+  Tooltip,
+  useEventListener,
+} from "@chakra-ui/react"
 
 import { PostType, useGetRandomPostQuery, useVoteMutation } from "lib/graphql"
-
 import { useMutationHandler } from "lib/hooks/useMutationHandler"
+
+import { EverythingVoted } from "./EverythingVoted"
 import { NoData } from "./NoData"
 import { Tile } from "./Tile"
-import { EverythingVoted } from "./EverythingVoted"
-import { gql } from "@apollo/client"
 
 const _ = gql`
   fragment RandomPost on Post {
@@ -89,21 +101,24 @@ export function RandomPost(props: Props) {
 
   if (error?.message === "All posts voted on") {
     return <EverythingVoted />
-  } else if (!loading && !post) {
+  }
+  if (!loading && !post) {
     return (
       <Center>
         <NoData>Error fetching post</NoData>
       </Center>
     )
-  } else if (post) {
-    return (
-      <Tile p={6} w="550px">
-        <Stack align="center" spacing={12} position="relative">
-          <Box h="300px" w="100%">
+  }
+
+  return (
+    <Tile p={{ base: 4, md: 6 }} maxW="550px">
+      <Stack align="center" spacing={{ base: 6, md: 12 }} position="relative">
+        <Box h={{ base: "200px", md: "300px" }} w="100%">
+          <Skeleton isLoaded={!loading && !!post} w="100%" h="100%" rounded="lg">
             <Image
-              alt={post.title}
+              alt={post?.title}
               src={
-                post.image ||
+                post?.image ||
                 "https://www.investopedia.com/thmb/1WsvySVwOtar439kYEFtSwV3eDw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1395371348-a3f9430f269b4f73b2659fe10c21c88c.jpg" // Elon
               }
               rounded="lg"
@@ -113,28 +128,36 @@ export function RandomPost(props: Props) {
               border="1px solid"
               borderColor="gray.100"
             />
-          </Box>
-          <Text fontWeight="bold" fontSize="2xl">
-            {post.title}
+          </Skeleton>
+        </Box>
+        <SkeletonText isLoaded={!loading && !!post} noOfLines={1} h="27px">
+          <Text fontWeight="bold" fontSize={{ base: "lg", md: "2xl" }}>
+            {post?.title}
           </Text>
+        </SkeletonText>
+        <Stack w={{ base: "100%", md: "auto" }}>
           <Stack align="center">
             <Button
-              size="lg"
-              aria-label={`vote for ${post.title}}`}
-              leftIcon={<Box as={LiaHandMiddleFingerSolid} boxSize="25px" />}
+              w="100%"
+              size={{ base: "md", md: "lg" }}
+              aria-label={`vote for ${post?.title}}`}
+              rightIcon={<Box as={LiaHandMiddleFingerSolid} boxSize="25px" />}
               onClick={() => handleVote(false)}
               colorScheme="green"
               isLoading={loading}
             >
               {buttonText}
             </Button>
-            <Tooltip label="You can use the enter/return key as a hotkey for this button">
-              <Kbd>enter</Kbd>
-            </Tooltip>
+            <Box display={{ base: "none", md: "flex" }}>
+              <Tooltip label="You can use the enter/return key as a hotkey for this button">
+                <Kbd>enter</Kbd>
+              </Tooltip>
+            </Box>
           </Stack>
-          <Box position="absolute" bottom={0} right={1}>
+          <Box position={{ base: "relative", md: "absolute" }} bottom={0} right={{ base: 0, md: 1 }}>
             <Stack align="center">
               <Button
+                w="100%"
                 variant="outline"
                 onClick={() => handleVote(true)}
                 rightIcon={<Box as={MdNavigateNext} boxSize="20px" />}
@@ -142,15 +165,15 @@ export function RandomPost(props: Props) {
               >
                 next
               </Button>
-              <Tooltip label="You can use the right arrow key as a hotkey for this button">
-                <Kbd>{">"}</Kbd>
-              </Tooltip>
+              <Box display={{ base: "none", md: "flex" }}>
+                <Tooltip label="You can use the right arrow key as a hotkey for this button">
+                  <Kbd>{">"}</Kbd>
+                </Tooltip>
+              </Box>
             </Stack>
           </Box>
         </Stack>
-      </Tile>
-    )
-  } else {
-    return null
-  }
+      </Stack>
+    </Tile>
+  )
 }

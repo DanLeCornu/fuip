@@ -1,37 +1,28 @@
 import * as React from "react"
 import { BiMoon, BiSun } from "react-icons/bi"
-// import { GiHamburgerMenu } from "react-icons/gi"
+import { HiMenuAlt3 } from "react-icons/hi"
+import { IoMdAdd } from "react-icons/io"
 import {
-  // Avatar,
   Box,
+  Button,
   Fade,
   HStack,
   IconButton,
-  // LinkProps,
-  // Menu,
-  // MenuButton,
-  // MenuDivider,
-  // MenuItem,
-  // MenuList,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Text,
   Tooltip,
   useColorMode,
   useColorModeValue,
-  Text,
-  Button,
 } from "@chakra-ui/react"
 import NextLink from "next/link"
-// import { useRouter } from "next/router"
-
-// import { Role } from "lib/graphql"
-// import { useLogout } from "lib/hooks/useLogout"
-// import { useMe } from "lib/hooks/useMe"
 
 import { Limiter } from "./Limiter"
-// import { LinkButton } from "./LinkButton"
 
 export function Nav() {
-  // const { me, loading } = useMe()
-  // const logout = useLogout()
   const { colorMode, toggleColorMode } = useColorMode()
   const isDark = colorMode === "dark"
 
@@ -48,7 +39,7 @@ export function Nav() {
       <Limiter
         display="flex"
         transition="200ms all"
-        py={{ base: 4, md: 3 }}
+        py={{ base: 0, md: 3 }}
         bg={useColorModeValue("white", "gray.800")}
         justifyContent="space-between"
         alignItems="center"
@@ -61,22 +52,9 @@ export function Nav() {
               FUIP
             </Text>
           </NextLink>
-          {/* <HomeLink
-            href="/"
-            // color={useColorModeValue("green.600", "green.400")}
-            pl={0}
-            // textTransform="uppercase"
-            // fontWeight="bold"
-          >
-            <Text fontWeight="bold" fontSize="2xl">
-              FUIP
-            </Text>
-          </HomeLink> */}
         </HStack>
 
         {/* Right link list */}
-
-        {/* {!me && !loading && ( */}
         <Fade in>
           <HStack spacing={4} display={{ base: "none", md: "flex" }}>
             <Tooltip label="Toggle Theme">
@@ -93,87 +71,32 @@ export function Nav() {
             </NextLink>
           </HStack>
         </Fade>
-        {/* )} */}
 
         {/* Right menu list */}
-        {/* <Menu placement="bottom-end">
+        <Menu placement="bottom-end">
           <MenuButton
             as={IconButton}
-            display={{ base: "flex", md: me ? "flex" : "none" }}
+            display={{ base: "flex", md: "none" }}
             variant="ghost"
             borderRadius="full"
-            icon={me ? <Avatar size="xs" src={me.avatar || undefined} /> : <Box as={GiHamburgerMenu} />}
+            icon={<Box as={HiMenuAlt3} boxSize="25px" />}
           />
 
           <MenuList fontSize="md">
-            {me ? (
-              <>
-                <NextLink passHref href="/profile">
-                  <MenuItem icon={<Box as={BiUser} boxSize="16px" />}>Profile</MenuItem>
-                </NextLink>
-                {me.role === Role.Admin && (
-                  <NextLink passHref href="/admin">
-                    <MenuItem icon={<Box as={BiCog} boxSize="16px" />}>Admin</MenuItem>
-                  </NextLink>
-                )}
-                <MenuDivider />
-                <MenuItem
-                  closeOnSelect={false}
-                  icon={<Box as={isDark ? BiSun : BiMoon} boxSize="16px" />}
-                  onClick={toggleColorMode}
-                >
-                  Toggle theme
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem onClick={() => logout()} icon={<Box as={BiExit} boxSize="16px" />}>
-                  Logout
-                </MenuItem>
-              </>
-            ) : (
-              <>
-                <MenuItem
-                  closeOnSelect={false}
-                  icon={<Box as={isDark ? BiSun : BiMoon} boxSize="16px" />}
-                  onClick={toggleColorMode}
-                >
-                  Toggle theme
-                </MenuItem>
-                <MenuDivider />
-                <NextLink passHref href="/login">
-                  <MenuItem>Login</MenuItem>
-                </NextLink>
-                <NextLink passHref href="/register">
-                  <MenuItem fontWeight="semibold">Register</MenuItem>
-                </NextLink>
-              </>
-            )}
+            <MenuItem
+              closeOnSelect={false}
+              icon={<Box as={isDark ? BiSun : BiMoon} boxSize="16px" />}
+              onClick={toggleColorMode}
+            >
+              Toggle theme
+            </MenuItem>
+            <MenuDivider />
+            <NextLink passHref href="/posts/new">
+              <MenuItem icon={<Box as={IoMdAdd} />}>Make a suggestion!</MenuItem>
+            </NextLink>
           </MenuList>
-        </Menu> */}
+        </Menu>
       </Limiter>
     </Box>
   )
 }
-
-// interface HomeLinkProps extends LinkProps {
-//   href: string
-// }
-
-// function HomeLink({ href, ...props }: HomeLinkProps) {
-//   const { asPath } = useRouter()
-//   const isActive = asPath === href
-
-//   return (
-//     <NextLink passHref href={href}>
-//       <Link
-//         px={4}
-//         py={2}
-//         textDecor="none !important"
-//         _hover={{ color: isActive ? "green.600" : "green.500" }}
-//         color={isActive ? "green.600" : "gray.500"}
-//         {...props}
-//       >
-//         {props.children}
-//       </Link>
-//     </NextLink>
-//   )
-// }

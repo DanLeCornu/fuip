@@ -1,11 +1,11 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
 import { Service } from "typedi"
 
+import { UNKNOWN } from "../../lib/helpers"
 import { prisma } from "../../lib/prisma"
 import { ResolverContext } from "../shared/resolverContext"
-import { Vote } from "./vote.model"
-import { UNKNOWN } from "../../lib/helpers"
 import { MyVotesResponse } from "./responses/myVotes.response"
+import { Vote } from "./vote.model"
 
 @Service()
 @Resolver(() => Vote)

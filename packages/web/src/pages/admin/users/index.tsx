@@ -21,9 +21,6 @@ const _ = gql`
     email
     createdAt
   }
-`
-
-const __ = gql`
   query GetUsers($orderBy: [UserOrderByWithRelationInput!], $where: UserWhereInput, $skip: Int) {
     users(take: 10, orderBy: $orderBy, where: $where, skip: $skip) {
       items {

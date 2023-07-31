@@ -3,13 +3,13 @@ import { Service } from "typedi"
 
 import { UserWhereInput } from "@fuip/database/dist/generated"
 
+import { AppError } from "../../lib/appError"
 import { createAuthToken, createRefreshToken } from "../../lib/jwt"
 import { prisma } from "../../lib/prisma"
 import { LoginInput } from "./inputs/login.input"
 import { RegisterInput } from "./inputs/register.input"
 import { RefreshTokenResponse } from "./responses/refreshToken.response"
 import { User } from "./user.model"
-import { AppError } from "../../lib/appError"
 
 @Service()
 export class UserService {

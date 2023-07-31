@@ -8,7 +8,7 @@ import { Textarea } from "./components/Textarea"
 export const theme = extendTheme({
   config: {
     useSystemColorMode: false,
-    initialColorMode: "dark",
+    initialColorMode: "light",
   },
   fonts: {
     body: "Poppins, sans-serif",

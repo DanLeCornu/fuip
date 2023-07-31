@@ -1,4 +1,4 @@
-import { randomFromArray } from "./utils"
+import { random } from "./utils"
 
 export const voteSuccessToast = (title: string) => {
   const messages = [
@@ -9,5 +9,5 @@ export const voteSuccessToast = (title: string) => {
     `Go fuck yourself ${title}!`,
     `Fuck ${title}!`,
   ]
-  return randomFromArray(messages)
+  return random(messages)
 }

@@ -1,10 +1,12 @@
+import * as React from "react"
 import { gql } from "@apollo/client"
-import { Center, HStack, SimpleGrid, Spinner, Stack, Text } from "@chakra-ui/react"
-import { SortOrder, useMyVotesQuery, usePostsQuery } from "lib/graphql"
+import { Box, Button, Center, Flex, Spinner, Stack } from "@chakra-ui/react"
+
+import { usePostsQuery } from "lib/graphql"
 import { generateDeviceId } from "lib/helpers/deviceId"
 import { useLocalStorage } from "lib/hooks/useLocalStorage"
 import { DEVICE_ID_STORAGE_NAME } from "lib/static/deviceId"
-import * as React from "react"
+
 import { NoData } from "./NoData"
 import { PostItem } from "./PostItem"
 
@@ -15,19 +17,19 @@ const _ = gql`
     image
     voteCount
   }
-  query Posts($orderBy: [PostOrderByWithRelationInput!]) {
-    posts(orderBy: $orderBy) {
+  query Posts($skip: Int) {
+    posts(take: 20, skip: $skip) {
       items {
         ...PostItem
       }
       count
     }
   }
-  query MyVotes($deviceId: String!) {
-    myVotes(deviceId: $deviceId) {
-      postId
-    }
-  }
+  # query MyVotes($deviceId: String!) {
+  #   myVotes(deviceId: $deviceId) {
+  #     postId
+  #   }
+  # }
 `
 
 export function PostList() {
@@ -38,19 +40,24 @@ export function PostList() {
     setDeviceId(generateDeviceId(storedDeviceId, setStoredDeviceId))
   }, [storedDeviceId, setStoredDeviceId])
 
-  const { data, loading } = usePostsQuery({
+  const { data, loading, fetchMore } = usePostsQuery({
     fetchPolicy: "cache-and-network",
-    variables: { orderBy: { votes: { _count: SortOrder.Desc } } }, // TODO order by votes that aren't skipped
   })
   const posts = data?.posts.items || []
 
-  const { data: voteData, loading: voteLoading } = useMyVotesQuery({
-    fetchPolicy: "cache-and-network",
-    variables: { deviceId },
-  })
-  const votes = voteData?.myVotes || []
+  const handleFetchMore = () => {
+    if (!posts) return
+    return fetchMore({ variables: { skip: posts.length } })
+  }
 
-  if ((loading && !data) || (voteLoading && !voteData))
+  // const { data: voteData, loading: voteLoading } = useMyVotesQuery({
+  //   fetchPolicy: "cache-and-network",
+  //   variables: { deviceId },
+  // })
+  // const votes = voteData?.myVotes || []
+
+  // if ((loading && !data) || (voteLoading && !voteData))
+  if (loading && !data)
     return (
       <Center h="400px">
         <Spinner />
@@ -63,21 +70,23 @@ export function PostList() {
       </Center>
     )
   return (
-    <SimpleGrid>
-      <Stack spacing={6}>
+    <Box pb={12}>
+      <Stack spacing={6} mb={12}>
         {posts.map((post, i) => (
-          <HStack key={i} spacing={8}>
-            <Text fontSize="4xl" mb={28}>
-              #{i + 1}
-            </Text>
-            <PostItem
-              post={post}
-              deviceId={deviceId}
-              isVotingDisabled={!!votes.find((v) => v.postId === post.id)}
-            />
-          </HStack>
+          <PostItem
+            key={i}
+            index={i}
+            post={post}
+            deviceId={deviceId}
+            // isVotingDisabled={!!votes.find((v) => v.postId === post.id)}
+          />
         ))}
       </Stack>
-    </SimpleGrid>
+      <Flex w="100%" justify="center">
+        <Button onClick={handleFetchMore} isLoading={loading}>
+          Load more
+        </Button>
+      </Flex>
+    </Box>
   )
 }

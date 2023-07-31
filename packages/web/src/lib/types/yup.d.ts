@@ -1,4 +1,4 @@
-import * as Yup from "yup"
+import type * as Yup from "yup"
 
 declare module "yup" {
   class StringSchema {

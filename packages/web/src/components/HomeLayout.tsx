@@ -9,31 +9,10 @@ interface Props {
 }
 
 export function HomeLayout(props: Props) {
-  // const { colorMode, toggleColorMode } = useColorMode()
-  // const isDark = colorMode === "dark"
   return (
     <Box>
       <Nav />
-      {/* <NextLink passHref href="/">
-        <Link position="fixed" top={6} left={6} sx={{ _hover: { textDecoration: "none" } }}>
-          <Text fontWeight="bold" fontSize="2xl">
-            FUIP
-          </Text>
-        </Link>
-      </NextLink> */}
-      {/* <Flex justify="flex-end">
-        <Tooltip label="Toggle Theme">
-          <IconButton
-            aria-label="toggle theme"
-            icon={isDark ? <BiSun /> : <BiMoon />}
-            onClick={toggleColorMode}
-            variant="ghost"
-            m={4}
-            size="lg"
-          />
-        </Tooltip>
-      </Flex> */}
-      <Limiter pt="120px">{props.children}</Limiter>
+      <Limiter pt={{ base: "70px", md: "120px" }}>{props.children}</Limiter>
     </Box>
   )
 }

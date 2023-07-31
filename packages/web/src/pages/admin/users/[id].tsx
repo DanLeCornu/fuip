@@ -14,9 +14,6 @@ const _ = gql`
     email
     createdAt
   }
-`
-
-const __ = gql`
   query GetUser($where: UserWhereInput) {
     user(where: $where) {
       ...UserDetail

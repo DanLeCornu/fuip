@@ -7,8 +7,8 @@ type Payload = Record<string, any>
 export const createToken = (payload: Payload, options?: jwt.SignOptions): string => {
   try {
     const token = jwt.sign(payload, APP_SECRET, {
-      issuer: "@amplify/api",
-      audience: ["@amplify/web"],
+      issuer: "@fuip/api",
+      audience: ["@fuip/web"],
       expiresIn: "4w",
       ...options,
     })
@@ -33,8 +33,8 @@ export function decodeToken<T>(token: string): T {
 export const createAuthToken = (payload: Payload): string => {
   try {
     const token = jwt.sign(payload, APP_AUTH_SECRET, {
-      issuer: "@amplify/api",
-      audience: ["@amplify/web"],
+      issuer: "@fuip/api",
+      audience: ["@fuip/web"],
       expiresIn: "20 mins",
     })
     return token
@@ -47,8 +47,8 @@ export const createAuthToken = (payload: Payload): string => {
 export const createRefreshToken = (payload: Payload): string => {
   try {
     const token = jwt.sign(payload, APP_REFRESH_SECRET, {
-      issuer: "@amplify/api",
-      audience: ["@amplify/app", "@amplify/web"],
+      issuer: "@fuip/api",
+      audience: ["@fuip/app", "@fuip/web"],
       expiresIn: "8 weeks",
     })
     return token

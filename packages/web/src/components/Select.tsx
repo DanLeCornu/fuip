@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useFormContext } from "react-hook-form"
-import type { SelectProps } from "@chakra-ui/react";
+import type { SelectProps } from "@chakra-ui/react"
 import { FormControl, Select as CSelect } from "@chakra-ui/react"
 
 import { InputError } from "./InputError"

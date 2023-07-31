@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useFormContext } from "react-hook-form"
-import type { TextareaProps } from "@chakra-ui/react";
+import type { TextareaProps } from "@chakra-ui/react"
 import { FormControl, Textarea as CTextarea } from "@chakra-ui/react"
 
 import { InputError } from "./InputError"

@@ -1,13 +1,12 @@
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql"
 import { Inject, Service } from "typedi"
 
 import { prisma } from "../../lib/prisma"
-import { ResolverContext } from "../shared/resolverContext"
 import { PostMailer } from "../post/post.mailer"
+import { ResolverContext } from "../shared/resolverContext"
 import { PostSuggestion } from "./postSuggestion.model"
-import dayjs from "dayjs"
-
-import utc from "dayjs/plugin/utc"
 dayjs.extend(utc)
 
 @Service()

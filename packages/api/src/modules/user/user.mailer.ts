@@ -7,10 +7,10 @@ import { User } from "./user.model"
 
 @Service()
 export class UserMailer extends Mailer {
-  sendResetPasswordLink(user: User, token: string) {
+  async sendResetPasswordLink(user: User, token: string) {
     try {
       if (!user.email) return
-      this.send({
+      await this.send({
         templateId: "d-efeeebd841dd48768ab7f4ac9907d2f1",
         to: user.email,
         variables: {
@@ -22,10 +22,10 @@ export class UserMailer extends Mailer {
     }
   }
 
-  sendPasswordChanged(user: User) {
+  async sendPasswordChanged(user: User) {
     try {
       if (!user.email) return
-      this.send({
+      await this.send({
         templateId: "d-c33ce68972604e0d9ca5e7732c771926",
         to: user.email,
       })

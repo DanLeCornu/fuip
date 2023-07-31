@@ -1,5 +1,6 @@
-import * as Prisma from "@fuip/database"
 import { Field, ObjectType } from "type-graphql"
+
+import * as Prisma from "@fuip/database"
 
 import { BaseModel } from "../shared/base.model"
 

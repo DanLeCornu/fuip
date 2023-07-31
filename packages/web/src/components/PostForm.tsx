@@ -1,13 +1,15 @@
 import * as React from "react"
-import Yup from "lib/yup"
 import { gql } from "@apollo/client"
-import { useForm } from "lib/hooks/useForm"
 import { Button, Stack } from "@chakra-ui/react"
-import { Input } from "./Input"
-import { FormError } from "./FormError"
+
+import { useSuggestPostMutation } from "lib/graphql"
+import { useForm } from "lib/hooks/useForm"
+import Yup from "lib/yup"
+
 import { ButtonGroup } from "./ButtonGroup"
 import { Form } from "./Form"
-import { useSuggestPostMutation } from "lib/graphql"
+import { FormError } from "./FormError"
+import { Input } from "./Input"
 
 const _ = gql`
   mutation SuggestPost($title: String!, $deviceId: String!) {

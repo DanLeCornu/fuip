@@ -536,18 +536,11 @@ export type SuggestPostMutation = { __typename?: 'Mutation', createPostSuggestio
 export type PostItemFragment = { __typename?: 'Post', id: string, title: string, image?: string | null, voteCount: number };
 
 export type PostsQueryVariables = Exact<{
-  orderBy?: InputMaybe<Array<PostOrderByWithRelationInput> | PostOrderByWithRelationInput>;
+  skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
 export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostsResponse', count: number, items: Array<{ __typename?: 'Post', id: string, title: string, image?: string | null, voteCount: number }> } };
-
-export type MyVotesQueryVariables = Exact<{
-  deviceId: Scalars['String'];
-}>;
-
-
-export type MyVotesQuery = { __typename?: 'Query', myVotes: Array<{ __typename?: 'MyVotesResponse', postId: string }> };
 
 export type RandomPostFragment = { __typename?: 'Post', id: string, title: string, image?: string | null, type: PostType };
 
@@ -705,8 +698,8 @@ export type SuggestPostMutationHookResult = ReturnType<typeof useSuggestPostMuta
 export type SuggestPostMutationResult = Apollo.MutationResult<SuggestPostMutation>;
 export type SuggestPostMutationOptions = Apollo.BaseMutationOptions<SuggestPostMutation, SuggestPostMutationVariables>;
 export const PostsDocument = gql`
-    query Posts($orderBy: [PostOrderByWithRelationInput!]) {
-  posts(orderBy: $orderBy) {
+    query Posts($skip: Int) {
+  posts(take: 20, skip: $skip) {
     items {
       ...PostItem
     }
@@ -725,24 +718,6 @@ export function usePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Post
 export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
 export type PostsLazyQueryHookResult = ReturnType<typeof usePostsLazyQuery>;
 export type PostsQueryResult = Apollo.QueryResult<PostsQuery, PostsQueryVariables>;
-export const MyVotesDocument = gql`
-    query MyVotes($deviceId: String!) {
-  myVotes(deviceId: $deviceId) {
-    postId
-  }
-}
-    `;
-export function useMyVotesQuery(baseOptions: Apollo.QueryHookOptions<MyVotesQuery, MyVotesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyVotesQuery, MyVotesQueryVariables>(MyVotesDocument, options);
-      }
-export function useMyVotesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyVotesQuery, MyVotesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyVotesQuery, MyVotesQueryVariables>(MyVotesDocument, options);
-        }
-export type MyVotesQueryHookResult = ReturnType<typeof useMyVotesQuery>;
-export type MyVotesLazyQueryHookResult = ReturnType<typeof useMyVotesLazyQuery>;
-export type MyVotesQueryResult = Apollo.QueryResult<MyVotesQuery, MyVotesQueryVariables>;
 export const GetRandomPostDocument = gql`
     query GetRandomPost($deviceId: String!) {
   randomPost(deviceId: $deviceId) {

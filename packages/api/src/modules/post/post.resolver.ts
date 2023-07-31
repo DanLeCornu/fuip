@@ -3,10 +3,11 @@ import { Inject, Service } from "typedi"
 
 import { FindFirstPostArgs, FindManyPostArgs } from "@fuip/database/dist/generated"
 
+import { random } from "../../lib/helpers"
 import { prisma } from "../../lib/prisma"
+import { PostMailer } from "./post.mailer"
 import { Post } from "./post.model"
 import { PostsResponse } from "./responses/posts.response"
-import { PostMailer } from "./post.mailer"
 
 @Service()
 @Resolver(() => Post)
@@ -30,18 +31,19 @@ export default class PostResolver {
       ...(args as any),
       where: { votes: { none: { deviceId } } },
     })
-    let randomIndex = Math.floor(Math.random() * posts.length) - 1
-    if (randomIndex < 0) {
-      randomIndex = 0
-    } else if (randomIndex > posts.length - 1) {
-      randomIndex = posts.length - 1
-    }
-    return posts[randomIndex]
+    return random(posts)
   }
 
   @Query(() => PostsResponse)
   async posts(@Args() args: FindManyPostArgs): Promise<PostsResponse> {
-    const items = await prisma.post.findMany(args as any)
+    const items: Post[] = await prisma.$queryRaw`
+      SELECT p.id, p.title, p.image
+      FROM "Post" p
+      LEFT JOIN "Vote" v ON p.id = v."postId" AND v.skip = FALSE
+      GROUP BY p.id
+      ORDER BY COUNT(v.id) DESC
+      LIMIT ${args.take} OFFSET ${args.skip}
+    `
     const count = await prisma.post.count({ ...(args as any), take: undefined, skip: undefined })
     return { items, count }
   }

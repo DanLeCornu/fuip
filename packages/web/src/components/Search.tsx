@@ -1,6 +1,7 @@
 import * as React from "react"
 import { CgClose, CgSearch } from "react-icons/cg"
-import { Box, BoxProps, IconButton, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
+import type { BoxProps } from "@chakra-ui/react"
+import { Box, IconButton, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
 
 import { useForm } from "lib/hooks/useForm"
 

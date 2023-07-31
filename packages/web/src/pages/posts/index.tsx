@@ -1,12 +1,12 @@
 import * as React from "react"
 import { IoMdArrowBack } from "react-icons/io"
-
-import { HomeLayout } from "components/HomeLayout"
-import { PostList } from "components/PostList"
-import { Box, Center, Heading, Stack, HStack, Text } from "@chakra-ui/react"
+import { Box, Center, Heading, HStack, Stack, Text } from "@chakra-ui/react"
 import Head from "next/head"
 import NextLink from "next/link"
+
+import { HomeLayout } from "components/HomeLayout"
 import { Limiter } from "components/Limiter"
+import { PostList } from "components/PostList"
 
 export default function Posts() {
   return (
@@ -22,15 +22,15 @@ export default function Posts() {
               <Text>back to ratings</Text>
             </HStack>
           </NextLink>
-          <Stack>
-            <Heading as="h1" textAlign="center">
+          <Stack spacing={1}>
+            <Heading as="h1" textAlign="center" fontSize={{ base: "xl", md: "3xl" }}>
               Leaderboard
             </Heading>
-            <Heading as="h2" textAlign="center" fontSize="lg" fontWeight="normal">
+            <Heading as="h2" textAlign="center" fontSize={{ base: "sm", md: "lg" }} fontWeight="normal">
               What does the internet hate the most?
             </Heading>
           </Stack>
-          <Box my={12}>
+          <Box my={{ base: 4, md: 16 }}>
             <PostList />
           </Box>
         </Center>

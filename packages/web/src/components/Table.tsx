@@ -139,11 +139,14 @@ export function Table<T extends DataType>(props: Props<T>) {
               {props.data?.length} / {props.count}
             </Text>
 
-            {!!props.onFetchMore && !!props.count && !!props.data?.length && props.data.length < props.count && (
-              <Button size="sm" onClick={handleFetchMore} isLoading={fetchLoading}>
-                Show more
-              </Button>
-            )}
+            {!!props.onFetchMore &&
+              !!props.count &&
+              !!props.data?.length &&
+              props.data.length < props.count && (
+                <Button size="sm" onClick={handleFetchMore} isLoading={fetchLoading}>
+                  Show more
+                </Button>
+              )}
           </Flex>
         </Flex>
       ) : (

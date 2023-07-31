@@ -1,15 +1,15 @@
 import * as React from "react"
-import { Box, Center, Heading, HStack, VStack, Text } from "@chakra-ui/react"
 import { IoMdArrowForward } from "react-icons/io"
+import { Box, Center, Heading, HStack, Text, VStack } from "@chakra-ui/react"
 import Head from "next/head"
 import NextLink from "next/link"
 
-import { HomeLayout } from "components/HomeLayout"
-import { Limiter } from "components/Limiter"
-import { RandomPost } from "components/RandomPost"
 import { generateDeviceId } from "lib/helpers/deviceId"
 import { useLocalStorage } from "lib/hooks/useLocalStorage"
 import { DEVICE_ID_STORAGE_NAME } from "lib/static/deviceId"
+import { HomeLayout } from "components/HomeLayout"
+import { Limiter } from "components/Limiter"
+import { RandomPost } from "components/RandomPost"
 
 export default function Home() {
   const [storedDeviceId, setStoredDeviceId] = useLocalStorage(DEVICE_ID_STORAGE_NAME, "")
@@ -27,19 +27,15 @@ export default function Home() {
 
       <Limiter>
         <Center flexDir="column">
-          <VStack>
-            <Heading
-              as="h1"
-              textAlign="center"
-              minW="402px" // magic number to always keep on one line, to improve
-            >
+          <VStack spacing={1}>
+            <Heading as="h1" textAlign="center" fontSize={{ base: "xl", md: "3xl" }}>
               Fuck You In Particular
             </Heading>
-            <Heading as="h2" textAlign="center" fontSize="lg" fontWeight="normal">
+            <Heading as="h2" textAlign="center" fontSize={{ base: "sm", md: "lg" }} fontWeight="normal">
               The Internet's most hated things
             </Heading>
           </VStack>
-          <Box my={16}>
+          <Box my={{ base: 4, md: 16 }}>
             <RandomPost deviceId={deviceId} />
           </Box>
           <NextLink passHref href="/posts">

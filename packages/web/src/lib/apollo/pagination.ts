@@ -28,6 +28,7 @@ export const typePolicies = {
   Query: {
     fields: {
       users: pagination,
+      posts: pagination,
     },
   },
 }
