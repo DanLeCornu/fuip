@@ -26,16 +26,6 @@ export default class AppDocument extends Document {
           />
           {IS_PRODUCTION && (
             <div className="container">
-              {/* GOOGLE ANALYTICS */}
-              <Script src="https://www.googletagmanager.com/gtag/js?id=G-3XQEJLV0LG" />
-              <Script id="ga-tag">
-                {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-3XQEJLV0LG');
-                `}
-              </Script>
               {/* HOTJAR */}
               <Script id="hotjar">
                 {`
