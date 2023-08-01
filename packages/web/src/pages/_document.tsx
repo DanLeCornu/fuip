@@ -25,22 +25,17 @@ export default class AppDocument extends Document {
             rel="stylesheet"
           />
           {IS_PRODUCTION && (
-            <Script
-              id="ga-tag"
-              dangerouslySetInnerHTML={{
-                __html: `
-              <!-- Google tag (gtag.js) -->
-              <script async src="https://www.googletagmanager.com/gtag/js?id=G-3XQEJLV0LG"></script>
-              <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              
-              gtag('config', 'G-3XQEJLV0LG');
-              </script>
-              `,
-              }}
-            />
+            <div className="container">
+              <Script src="https://www.googletagmanager.com/gtag/js?id=G-3XQEJLV0LG" />
+              <Script id="ga-tag">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-3XQEJLV0LG');
+                `}
+              </Script>
+            </div>
           )}
         </Head>
         <body>
