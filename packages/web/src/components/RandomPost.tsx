@@ -111,7 +111,7 @@ export function RandomPost(props: Props) {
   }
 
   return (
-    <Tile p={{ base: 4, md: 6 }} maxW="550px">
+    <Tile p={{ base: 4, md: 6 }} maxW="550px" m="0 auto">
       <Stack align="center" spacing={{ base: 6, md: 12 }} position="relative">
         <Box h={{ base: "200px", md: "300px" }} w="100%">
           <Skeleton isLoaded={!loading && !!post} w="100%" h="100%" rounded="lg">
