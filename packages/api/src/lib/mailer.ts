@@ -38,7 +38,7 @@ interface MailArgs {
 }
 
 export class Mailer {
-  private readonly from: string = "FUIP <info@fuckyouinparticular.live>"
+  private readonly from: string = "FUIP <danthewebdev@gmail.com>"
   private devMail: Transporter
 
   constructor() {

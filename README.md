@@ -1,2 +1,3 @@
 # fuckyouinparticular
-fuckyouinparticular.live
+
+https://fuip.app

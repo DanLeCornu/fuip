@@ -97,8 +97,8 @@ export default function Privacy() {
         <li>
           <p>
             <strong>Website</strong> refers to Fuck You In Particular, accessible from{" "}
-            <a href="www.fuckyouinparticular.com" rel="external nofollow noopener" target="_blank">
-              www.fuckyouinparticular.com
+            <a href="www.fuip.app" rel="external nofollow noopener" target="_blank">
+              www.fuip.app
             </a>
           </p>
         </li>

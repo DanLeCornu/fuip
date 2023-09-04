@@ -7,13 +7,13 @@ export const SENTRY_DSN =
   "https://834d1ce46681462ebbf9f24bfdf2388e@o4505602731540480.ingest.sentry.io/4505602734882816"
 
 // const STAGING_URL = process.env.VERCEL_GIT_PULL_REQUEST_NUMBER
-//   ? `https://api-fuckyouinparticular-pr-${process.env.VERCEL_GIT_PULL_REQUEST_NUMBER}.up.railway.app`
-//   : "https://staging.api.fuckyouinparticular.live"
+//   ? `https://api-fuip-pr-${process.env.VERCEL_GIT_PULL_REQUEST_NUMBER}.up.railway.app`
+//   : "https://staging.api.fuip.app"
 
 export const API_URL = IS_PRODUCTION
-  ? "https://api.fuckyouinparticular.live"
+  ? "https://api.fuip.app"
   : IS_STAGING
-  ? "https://staging.api.fuckyouinparticular.live"
+  ? "https://staging.api.fuip.app"
   : "http://localhost:5555"
 
 export const GRAPHQL_API_URL = API_URL + "/graphql"

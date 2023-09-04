@@ -10,7 +10,7 @@ export const {
   SENDGRID_API_KEY = "SENDGRID_API_KEY",
   PORT = 5555,
   DATABASE_URL = "",
-  WEB_URL = "localhost:3001",
+  WEB_URL = "localhost:3000",
   REDIS_URL = "",
 } = process.env
 
