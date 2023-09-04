@@ -4,7 +4,6 @@
     "**/node_modules": true
     // "**/generated/**": true
   },
-  "eslint.packageManager": "pnpm",
   "files.exclude": {
     // "**/generated/**": true,
     // "**/node_modules/**": true,
