@@ -19,6 +19,7 @@ const DEV_EMAIL_OPTIONS: any = {
 }
 
 export const DLC_EMAIL = "danthewebdev@gmail.com"
+export const SIMPLE_TEMPLATE_ID = "d-46a83e56d4c74b96bdb516d129f38286"
 
 // interface TemplateVersion {
 //   updated_at: string

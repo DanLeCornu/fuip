@@ -1,21 +1,22 @@
 import * as Sentry from "@sentry/node"
 import { Service } from "typedi"
 
-import { DLC_EMAIL, Mailer } from "../../lib/mailer"
+import { DLC_EMAIL, Mailer, SIMPLE_TEMPLATE_ID } from "../../lib/mailer"
 
 @Service()
 export class PostMailer extends Mailer {
   sendSuggestedPost(title: string, deviceId: string) {
     try {
       return this.send({
-        templateId: "d-c33ce68972604e0d9ca5e7732c771926",
+        templateId: SIMPLE_TEMPLATE_ID,
         to: DLC_EMAIL,
         variables: {
-          subject: "FUIP - new suggestion",
+          subject: "FUIP - new post suggested",
+          heading: "A new post has been suggested",
           text: `
 						deviceId: ${deviceId}
 						<br>
-						name: ${title}
+						title: ${title}
 					`,
         },
       })
