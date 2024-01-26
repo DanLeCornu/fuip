@@ -31,6 +31,6 @@
     "apollo-server-express",
     "apollo-server-core",
     "apollo-server-types",
-    "apollo-server-errors",
+    "apollo-server-errors"
   ]
 }
